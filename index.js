@@ -1,3 +1,13 @@
+// -----------------------------------------
+// [X] Ordem do grafo
+// [X] Tamanho do grafo
+// [X] Grau dos vértice
+// [X] Se possui vértice isolado
+// [X] Se possui loop
+// -----------------------------------------
+// [ ] Se possui aresta paralela (??)
+// [ ] Corrigir para funcionar com arestas paralela
+
 const graph = {
     start: { A: 2, B: 5, C: 3, D: 2 },
     A: { E: 5, B: 4 },
@@ -6,8 +16,79 @@ const graph = {
     D: { F: 9 },
     E: { F: 6, finish: 2 },
     F: { finish: 1 },
-    finish: {}
+    finish: {},
 };
+
+
+// tem loop
+function graphHasLoop(graph) {
+    let hasLoop = false;
+    for (let node in graph) {
+        if (Object.keys(graph[node])
+            .some(item => item === node)) {
+            hasLoop = true;
+            break;
+        }
+    };
+
+    return hasLoop;
+}
+
+// tem vértice isolado
+function graphHasIsolatedVertex(vertexDegrees) {
+    return Object
+        .keys(vertexDegrees)
+        .some(item =>
+            vertexDegrees[item].output === 0 &&
+            vertexDegrees[item].input === 0
+        );
+}
+
+// graus de entrada do vértice
+function graphVertexInputDegree(graph, nodeItem) {
+    const nodes = Object.keys(graph).filter(item => item !== nodeItem);
+
+    let degree = 0;
+    nodes.forEach(node => {
+        degree += Object.keys(graph[node]).filter(item => item === nodeItem).length;
+    });
+
+    return degree;
+}
+
+// graus dos vértices
+function graphVertexDegrees(graph) {
+    const nodes = Object.keys(graph);
+    const vertexDegrees = {};
+
+    nodes.forEach(node => {
+        vertexDegrees[node] = {
+            output: Object.keys(graph[node]).length,
+            input: graphVertexInputDegree(graph, node)
+        };
+    });
+
+    return vertexDegrees;
+}
+
+// tamanho do grafo
+function graphSize(graph) {
+    const nodes = Object.keys(graph);
+
+    let size = 0;
+    size += nodes.length;
+
+    nodes.forEach(node => {
+        size += Object.keys(graph[node]).length;
+    });
+
+    return size;
+}
+
+// ordem do grafo
+function graphOrder(graph) {
+    return Object.keys(graph).length;
+}
 
 // retorna o nó com menor custo que ainda não foi processado
 function lowestCostNode(costs, processed) {
@@ -72,13 +153,18 @@ function dijkstra(graph, initialNode, finalNode) {
     optimalPath.reverse();
 
     // monta resultado e retorna
-    const results = {
-        distance: trackedCosts[finalNode],
-        path: optimalPath
-    };
+    const degrees = graphVertexDegrees(graph);
+    const hasIsolatedVertex = graphHasIsolatedVertex(degrees);
 
-    console.log({ trackedCosts });
-    console.log({ trackedParents });
+    const results = {
+        distancia: trackedCosts[finalNode],
+        caminho: optimalPath,
+        ordem: graphOrder(graph),
+        tamanho: graphSize(graph),
+        grauDosVertices: degrees,
+        temVerticeIsolado: hasIsolatedVertex,
+        temLoop: graphHasLoop(graph),
+    };
 
     return results;
 }
