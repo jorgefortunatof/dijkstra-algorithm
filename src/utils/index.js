@@ -1,10 +1,14 @@
 // tem aresta paralela
 export function graphHasParallelEdge(graph) {
-    const nodes = Object.keys(graph);
+    for (let node in graph) {
+        for (let child in graph[node]) {
+            if (Object.keys(graph[child]).includes(node)) {
+                return true;
+            }
+        }
+    }
 
-
-    // Verificar se existe duas saídas para um mesmo nó
-    // Verificar se existe saída e entrada entre dois nós
+    return false;
 }
 
 // tem loop
@@ -31,7 +35,6 @@ export function graphHasIsolatedVertex(vertexDegrees) {
         );
 }
 
-// graus de entrada do vértice
 function graphVertexInputDegree(graph, nodeItem) {
     const nodes = Object.keys(graph).filter(item => item !== nodeItem);
 
@@ -88,3 +91,19 @@ export function lowestCostNode(costs, processed) {
         return lowest;
     }, null);
 };
+
+export function showGraphResult(graph) {
+    console.log('\n=====================================');
+    console.log('Caminho: ', graph.path);
+    console.log('Distância: ', graph.distance);
+    console.log('-------------------------------------');
+    console.log('Tamanho: ', graph.size);
+    console.log('Ordem: ', graph.order);
+    console.log('-------------------------------------');
+    console.log('Graus dos Vértices: ', graph.vertexDegrees);
+    console.log('-------------------------------------');
+    console.log('Tem Vértice Isolado: ', graph.hasIsolatedVertex);
+    console.log('Tem Loop: ', graph.hasLoop);
+    console.log('Tem Aresta Paralela: ', graph.hasParallelEdge);
+    console.log('=====================================\n');
+}

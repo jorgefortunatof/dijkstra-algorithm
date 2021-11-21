@@ -1,13 +1,3 @@
-// -----------------------------------------
-// [X] Ordem do grafo
-// [X] Tamanho do grafo
-// [X] Grau dos vértice
-// [X] Se possui vértice isolado
-// [X] Se possui loop
-// -----------------------------------------
-// [ ] Se possui aresta paralela (??)
-// [ ] Remover start e finish
-
 import {
     graphHasIsolatedVertex,
     graphHasLoop,
@@ -15,18 +5,19 @@ import {
     graphOrder,
     graphSize,
     graphVertexDegrees,
-    lowestCostNode
+    lowestCostNode,
+    showGraphResult
 } from './utils/index.js';
 
 const graph = {
-    start: { A: 2, B: 5, C: 3, D: 2 },
-    A: { E: 5, B: 4 },
-    B: { E: 3, F: 2 },
-    C: { B: 8, F: 7 },
-    D: { F: 9 },
-    E: { F: 6, finish: 2 },
-    F: { finish: 1 },
-    finish: {},
+    A: { B: 2, C: 5, D: 3, E: 2 },
+    B: { C: 4, F: 5 },
+    C: { F: 3, G: 2 },
+    D: { C: 8, G: 7 },
+    E: { G: 9 },
+    F: { G: 6, H: 2 },
+    G: { H: 1 },
+    H: {},
 };
 
 function dijkstra(graph, initialNode, finalNode) {
@@ -69,13 +60,17 @@ function dijkstra(graph, initialNode, finalNode) {
     }
 
     // pega o caminho
-    trackedParents[initialNode] = null;
     let optimalPath = [finalNode];
     let parent = trackedParents[finalNode];
 
     while (parent) {
         optimalPath.push(parent);
         parent = trackedParents[parent];
+
+        if (parent === initialNode) {
+            optimalPath.push(parent);
+            break;
+        }
     }
 
     optimalPath.reverse();
@@ -85,16 +80,17 @@ function dijkstra(graph, initialNode, finalNode) {
     const hasIsolatedVertex = graphHasIsolatedVertex(degrees);
 
     const results = {
-        distancia: trackedCosts[finalNode],
-        caminho: optimalPath,
-        ordem: graphOrder(graph),
-        tamanho: graphSize(graph),
-        grauDosVertices: degrees,
-        temVerticeIsolado: hasIsolatedVertex,
-        temLoop: graphHasLoop(graph),
+        distance: trackedCosts[finalNode],
+        path: optimalPath,
+        order: graphOrder(graph),
+        size: graphSize(graph),
+        vertexDegrees: degrees,
+        hasIsolatedVertex: hasIsolatedVertex,
+        hasLoop: graphHasLoop(graph),
+        hasParallelEdge: graphHasParallelEdge(graph)
     };
 
     return results;
 }
 
-console.log('dijkstra: ', dijkstra(graph, 'start', 'finish'));
+showGraphResult(dijkstra(graph, 'C', 'H'));
