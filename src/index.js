@@ -93,4 +93,4 @@ function dijkstra(graph, initialNode, finalNode) {
     return results;
 }
 
-showGraphResult(dijkstra(graph, 'C', 'H'));
+showGraphResult(dijkstra(graph, 'A', 'H'));
