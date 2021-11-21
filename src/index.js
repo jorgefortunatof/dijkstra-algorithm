@@ -23,11 +23,10 @@ const graph = {
 function dijkstra(graph, initialNode, finalNode) {
     const trackedCosts = { ...graph[initialNode] };
     trackedCosts[finalNode] = Infinity;
+    const processedNodes = [];
 
     const trackedParents = {};
     trackedParents[finalNode] = null;
-
-    const processedNodes = [];
 
     // adiciona sucessores do nó inicial
     for (let child in graph[initialNode]) {

@@ -92,18 +92,18 @@ export function lowestCostNode(costs, processed) {
     }, null);
 };
 
-export function showGraphResult(graph) {
+export function showGraphResult(graphResult) {
     console.log('\n=====================================');
-    console.log('Caminho: ', graph.path);
-    console.log('Distância: ', graph.distance);
+    console.log('Caminho: ', graphResult.path);
+    console.log('Distância: ', graphResult.distance);
     console.log('-------------------------------------');
-    console.log('Tamanho: ', graph.size);
-    console.log('Ordem: ', graph.order);
+    console.log('Tamanho: ', graphResult.size);
+    console.log('Ordem: ', graphResult.order);
     console.log('-------------------------------------');
-    console.log('Graus dos Vértices: ', graph.vertexDegrees);
+    console.log('Graus dos Vértices: ', graphResult.vertexDegrees);
     console.log('-------------------------------------');
-    console.log('Tem Vértice Isolado: ', graph.hasIsolatedVertex);
-    console.log('Tem Loop: ', graph.hasLoop);
-    console.log('Tem Aresta Paralela: ', graph.hasParallelEdge);
+    console.log('Tem Vértice Isolado: ', graphResult.hasIsolatedVertex);
+    console.log('Tem Loop: ', graphResult.hasLoop);
+    console.log('Tem Aresta Paralela: ', graphResult.hasParallelEdge);
     console.log('=====================================\n');
 }
