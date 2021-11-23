@@ -39,7 +39,7 @@ function dijkstra(graph, initialNode, finalNode) {
     const trackedParents = {};
     trackedParents[finalNode] = null;
 
-    // adiciona sucessores do nó inicial
+    // adiciona o nó inicial como antecessor dos seus filhos
     for (let child in graph[initialNode]) {
         trackedParents[child] = initialNode;
     }
