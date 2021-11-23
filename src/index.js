@@ -104,5 +104,5 @@ function dijkstra(graph, initialNode, finalNode) {
 }
 
 
-const results = dijkstra(graph1, 'A', 'G');
+const results = dijkstra(graph1, 'A', 'H');
 showGraphResult(results);
