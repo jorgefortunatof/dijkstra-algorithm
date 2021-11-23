@@ -97,8 +97,8 @@ export function showGraphResult(graphResult) {
     console.log('Caminho: ', graphResult.path);
     console.log('Distância: ', graphResult.distance);
     console.log('-------------------------------------');
-    console.log('Tamanho: ', graphResult.size);
-    console.log('Ordem: ', graphResult.order);
+    console.log('Tamanho do grafo: ', graphResult.size);
+    console.log('Ordem do grafo: ', graphResult.order);
     console.log('-------------------------------------');
     console.log('Graus dos Vértices: ', graphResult.vertexDegrees);
     console.log('-------------------------------------');
