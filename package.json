@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "execute": "node src/index.js"
   },
   "author": "jorgefortunatof",
   "license": "ISC",

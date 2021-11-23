@@ -9,7 +9,7 @@ import {
     showGraphResult
 } from './utils/index.js';
 
-const graph = {
+const graph1 = {
     A: { B: 2, C: 5, D: 3, E: 2 },
     B: { C: 4, F: 5 },
     C: { F: 3, G: 2 },
@@ -18,6 +18,17 @@ const graph = {
     F: { G: 6, H: 2 },
     G: { H: 1 },
     H: {},
+};
+
+const graph2 = {
+    A: { B: 1, E: 2, C: 4 },
+    B: { D: 2 },
+    C: { F: 5 },
+    D: { G: 8, D: 0 },
+    E: { G: 9 },
+    F: { G: 1 },
+    G: { F: 1 },
+    H: {}
 };
 
 function dijkstra(graph, initialNode, finalNode) {
@@ -92,4 +103,6 @@ function dijkstra(graph, initialNode, finalNode) {
     return results;
 }
 
-showGraphResult(dijkstra(graph, 'A', 'H'));
+
+const results = dijkstra(graph1, 'A', 'G');
+showGraphResult(results);
